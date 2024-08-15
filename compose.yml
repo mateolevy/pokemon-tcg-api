@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres_db
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_DB: pokemon-tcg
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
