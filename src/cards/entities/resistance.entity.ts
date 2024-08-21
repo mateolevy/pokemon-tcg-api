@@ -12,6 +12,6 @@ export class Resistance extends BaseDbEntity {
   @ManyToOne(() => Type, { nullable: false })
   type: Type;
 
-  @Column()
+  @Column('int')
   value: number; // e.g., -20, -40
 }

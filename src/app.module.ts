@@ -2,13 +2,13 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CardsModule } from './cards/cards.module';
 import { CommonModule } from './common/common.module';
-import typeorm from './config/typeorm';
+import typeorm from './database/data-source';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
-    CardsModule,
     CommonModule,
+    CardsModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [typeorm],

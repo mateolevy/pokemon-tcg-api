@@ -21,22 +21,31 @@ export class Card extends AuditEntity {
   hp: number;
 
   @Column({ type: 'varchar', nullable: true, length: 2048 })
-  image_url: string;
+  imageUrl: string;
 
   @ManyToOne(() => Rarity, (rarity) => rarity.cards, { nullable: false })
   rarity: Rarity;
 
-  @OneToMany(() => Attack, (attack) => attack.card, { cascade: true })
+  @ManyToOne(() => Set, (set) => set.cards, {
+    nullable: false,
+  })
+  set: Set;
+
+  @OneToMany(() => Attack, (attack) => attack.card, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   attacks: Attack[];
 
-  @OneToMany(() => Weakness, (weakness) => weakness.card, { cascade: true })
+  @OneToMany(() => Weakness, (weakness) => weakness.card, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   weaknesses: Weakness[];
 
   @OneToMany(() => Resistance, (resistance) => resistance.card, {
     cascade: true,
+    onDelete: 'CASCADE',
   })
   resistances: Resistance[];
-
-  @ManyToOne(() => Set, (set) => set.cards, { nullable: true })
-  set: Set;
 }

@@ -9,6 +9,7 @@ import {
   Length,
   IsInt,
   IsNotEmpty,
+  IsUUID,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { CreateAttackDto } from './create-attack.dto';
@@ -27,21 +28,17 @@ export class CreateCardDto {
 
   @IsOptional()
   @IsUrl()
-  @Length(0, 2048)
   image_url?: string;
 
-  @IsInt()
-  @Min(1)
-  typeId: number;
+  @IsUUID()
+  typeId: string;
 
-  @IsInt()
-  @Min(1)
-  rarityId: number;
+  @IsUUID()
+  rarityId: string;
 
   @IsOptional()
-  @IsInt()
-  @Min(1)
-  setId?: number;
+  @IsUUID()
+  setId?: string;
 
   @IsArray()
   @ArrayMinSize(1)
@@ -50,11 +47,13 @@ export class CreateCardDto {
   attacks: CreateAttackDto[];
 
   @IsArray()
+  @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => CreateWeaknessDto)
   weaknesses: CreateWeaknessDto[];
 
   @IsArray()
+  @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => CreateResistanceDto)
   resistances: CreateResistanceDto[];

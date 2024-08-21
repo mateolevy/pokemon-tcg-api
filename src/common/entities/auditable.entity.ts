@@ -3,8 +3,8 @@ import { BaseDbEntity } from './base.entity';
 
 export abstract class AuditEntity extends BaseDbEntity {
   @CreateDateColumn({ type: 'timestamp' })
-  created_at: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updated_at: Date;
+  updatedAt: Date;
 }

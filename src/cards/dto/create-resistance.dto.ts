@@ -1,9 +1,11 @@
-import { IsNumber, IsInt } from 'class-validator';
+import { IsInt, IsNotEmpty, Max, IsUUID } from 'class-validator';
 
 export class CreateResistanceDto {
-  @IsNumber()
-  typeId: number;
+  @IsUUID()
+  @IsNotEmpty()
+  typeId: string;
 
   @IsInt()
-  value: number; // Expected negative values (-20, -40, etc.)
+  @Max(-1)
+  value: number;
 }

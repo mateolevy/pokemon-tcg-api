@@ -4,8 +4,8 @@ import { BaseDbEntity } from '../../common/entities/base.entity';
 
 @Entity()
 export class Rarity extends BaseDbEntity {
-  @Column({ unique: true })
-  name: string; // Possible values: 'common', 'uncommon', 'rare'
+  @Column({ unique: true, length: 50 })
+  name: string;
 
   @OneToMany(() => Card, (card) => card.rarity)
   cards: Card[];

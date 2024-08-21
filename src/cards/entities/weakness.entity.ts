@@ -12,6 +12,6 @@ export class Weakness extends BaseDbEntity {
   @ManyToOne(() => Type, { nullable: false })
   type: Type;
 
-  @Column()
+  @Column('int')
   multiplier: number; // e.g., 2 for 2x, 4 for 4x
 }

@@ -6,13 +6,13 @@ import { BaseDbEntity } from '../../common/entities/base.entity';
 @Check('"damage" > 0')
 @Unique(['card', 'name'])
 export class Attack extends BaseDbEntity {
-  @Column()
+  @Column({ length: 100 })
   name: string;
 
-  @Column()
+  @Column({ length: 255 })
   text: string;
 
-  @Column()
+  @Column('int')
   damage: number;
 
   @ManyToOne(() => Card, (card) => card.attacks, { nullable: false })
