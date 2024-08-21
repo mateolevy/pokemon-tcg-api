@@ -1,38 +1,42 @@
 import { Entity, Column, ManyToOne, OneToMany, Index, Check } from 'typeorm';
-import { Ability } from './ability.entity';
+import { Attack } from './attack.entity';
 import { Type } from './type.entity';
 import { Weakness } from './weakness.entity';
 import { Resistance } from './resistance.entity';
 import { Rarity } from './rarity.entity';
-import { AuditEntity } from 'src/common/entities/auditable.entity';
+import { AuditEntity } from '../../common/entities/auditable.entity';
+import { Set } from './set.entity';
 
 @Entity()
-@Check('"hp" > 0')
+@Check('"hp" > 0') // Ensure hp is greater than 0
 export class Card extends AuditEntity {
   @Index()
-  @Column()
+  @Column({ length: 100 })
   name: string;
 
-  @ManyToOne(() => Type, (type) => type.cards)
+  @ManyToOne(() => Type, (type) => type.cards, { nullable: false })
   type: Type;
 
-  @Column()
+  @Column('int')
   hp: number;
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true, length: 2048 })
   image_url: string;
 
-  @ManyToOne(() => Rarity, (rarity) => rarity.cards)
+  @ManyToOne(() => Rarity, (rarity) => rarity.cards, { nullable: false })
   rarity: Rarity;
 
-  @OneToMany(() => Ability, (ability) => ability.card, { cascade: true })
-  abilities: Ability[];
+  @OneToMany(() => Attack, (attack) => attack.card, { cascade: true })
+  attacks: Attack[];
 
-  @OneToMany(() => Weakness, (weakness) => weakness, { cascade: true })
+  @OneToMany(() => Weakness, (weakness) => weakness.card, { cascade: true })
   weaknesses: Weakness[];
 
   @OneToMany(() => Resistance, (resistance) => resistance.card, {
     cascade: true,
   })
   resistances: Resistance[];
+
+  @ManyToOne(() => Set, (set) => set.cards, { nullable: true })
+  set: Set;
 }

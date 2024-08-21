@@ -1,7 +1,7 @@
 import { Entity, ManyToOne, Column, Check } from 'typeorm';
 import { Card } from './card.entity';
 import { Type } from './type.entity';
-import { BaseDbEntity } from 'src/common/entities/base.entity';
+import { BaseDbEntity } from '../../common/entities/base.entity';
 
 @Entity()
 @Check('"value" < 0')

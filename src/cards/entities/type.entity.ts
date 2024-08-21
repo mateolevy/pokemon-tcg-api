@@ -1,6 +1,6 @@
 import { Entity, Column, OneToMany } from 'typeorm';
 import { Card } from './card.entity';
-import { BaseDbEntity } from 'src/common/entities/base.entity';
+import { BaseDbEntity } from '../../common/entities/base.entity';
 
 @Entity()
 export class Type extends BaseDbEntity {
