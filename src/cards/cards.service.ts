@@ -6,7 +6,7 @@ import {
 import { CreateCardDto } from './dto/create-card.dto';
 import { UpdateCardDto } from './dto/update-card.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindManyOptions, ILike, Repository } from 'typeorm';
 import { Card } from './entities/card.entity';
 import { Type } from './entities/type.entity';
 import { Rarity } from './entities/rarity.entity';
@@ -16,6 +16,8 @@ import { Resistance } from './entities/resistance.entity';
 import { Weakness } from './entities/weakness.entity';
 import { CardDto } from './dto/card.dto';
 import { BattleResultDto } from './dto/battle-result.dto';
+import { PaginatedResultDto } from 'src/common/dto/paginated-result.dto';
+import { FindCardsQueryDto } from './dto/find-cards-query.dto';
 
 @Injectable()
 export class CardsService {
@@ -98,8 +100,25 @@ export class CardsService {
     return this.mapToDto(await this.cardRepository.save(card));
   }
 
-  async findAll(): Promise<CardDto[]> {
-    const cards = await this.cardRepository.find({
+  async findAll(
+    query: FindCardsQueryDto,
+  ): Promise<PaginatedResultDto<CardDto>> {
+    const where: FindManyOptions<Card>['where'] = {};
+
+    if (query.name) {
+      where.name = ILike(`%${query.name}%`);
+    }
+
+    if (query.setId) {
+      where.set = { id: query.setId };
+    }
+
+    if (query.typeId) {
+      where.type = { id: query.typeId };
+    }
+
+    const [cards, total] = await this.cardRepository.findAndCount({
+      where,
       relations: [
         'type',
         'rarity',
@@ -110,8 +129,18 @@ export class CardsService {
         'weaknesses.type',
         'resistances.type',
       ],
+      take: query.limit,
+      skip: (query.page - 1) * query.limit,
+      order: { createdAt: 'ASC' },
     });
-    return cards.map(this.mapToDto);
+
+    const cardDtos = cards.map(this.mapToDto);
+    return new PaginatedResultDto<CardDto>(
+      cardDtos,
+      total,
+      query.page,
+      query.limit,
+    );
   }
 
   async findOne(id: string): Promise<CardDto> {

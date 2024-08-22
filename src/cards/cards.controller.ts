@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { CardsService } from './cards.service';
 import { CreateCardDto } from './dto/create-card.dto';
@@ -13,6 +14,8 @@ import { UpdateCardDto } from './dto/update-card.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { CardDto } from './dto/card.dto';
 import { BattleResultDto } from './dto/battle-result.dto';
+import { PaginatedResultDto } from 'src/common/dto/paginated-result.dto';
+import { FindCardsQueryDto } from './dto/find-cards-query.dto';
 
 @Controller('cards')
 @ApiTags('cards')
@@ -25,8 +28,10 @@ export class CardsController {
   }
 
   @Get()
-  findAll() {
-    return this.cardsService.findAll();
+  async findAll(
+    @Query() query: FindCardsQueryDto,
+  ): Promise<PaginatedResultDto<CardDto>> {
+    return await this.cardsService.findAll(query);
   }
 
   @Get('metadata')
