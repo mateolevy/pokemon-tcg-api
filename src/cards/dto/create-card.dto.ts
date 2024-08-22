@@ -28,7 +28,7 @@ export class CreateCardDto {
 
   @IsOptional()
   @IsUrl()
-  image_url?: string;
+  imageUrl?: string;
 
   @IsUUID()
   typeId: string;
@@ -36,9 +36,8 @@ export class CreateCardDto {
   @IsUUID()
   rarityId: string;
 
-  @IsOptional()
   @IsUUID()
-  setId?: string;
+  setId: string;
 
   @IsArray()
   @ArrayMinSize(1)

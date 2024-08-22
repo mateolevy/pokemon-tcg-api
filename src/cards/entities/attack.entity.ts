@@ -15,6 +15,9 @@ export class Attack extends BaseDbEntity {
   @Column('int')
   damage: number;
 
-  @ManyToOne(() => Card, (card) => card.attacks, { nullable: false })
+  @ManyToOne(() => Card, (card) => card.attacks, {
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
   card: Card;
 }

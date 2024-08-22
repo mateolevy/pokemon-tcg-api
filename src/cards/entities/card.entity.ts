@@ -33,19 +33,16 @@ export class Card extends AuditEntity {
 
   @OneToMany(() => Attack, (attack) => attack.card, {
     cascade: true,
-    onDelete: 'CASCADE',
   })
   attacks: Attack[];
 
   @OneToMany(() => Weakness, (weakness) => weakness.card, {
     cascade: true,
-    onDelete: 'CASCADE',
   })
   weaknesses: Weakness[];
 
   @OneToMany(() => Resistance, (resistance) => resistance.card, {
     cascade: true,
-    onDelete: 'CASCADE',
   })
   resistances: Resistance[];
 }

@@ -18,11 +18,11 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "migration:generate": "ts-node node_modules/typeorm/cli.js migration:generate ./src/database/migrations/schema-update -d ./src/config/typeorm.ts",
-    "migration:run": "ts-node node_modules/typeorm/cli.js migration:run -d ./src/config/typeorm.ts",
-    "migration:down": "ts-node node_modules/typeorm/cli.js migration:revert -d ./src/config/typeorm.ts",
+    "migration:generate": "ts-node node_modules/typeorm/cli.js migration:generate ./src/database/migrations/schema-update -d ./src/database/data-source.ts",
+    "migration:run": "ts-node node_modules/typeorm/cli.js migration:run -d ./src/database/data-source.ts",
+    "migration:down": "ts-node node_modules/typeorm/cli.js migration:revert -d ./src/database/data-source.ts",
     "migration:create": "ts-node node_modules/typeorm/cli.js migration:create ./src/database/migrations/schema-update",
-    "sync": "ts-node node_modules/typeorm/cli.js schema:sync -d ./src/config/typeorm.ts"
+    "sync": "ts-node node_modules/typeorm/cli.js schema:sync -d ./src/database/data-source.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

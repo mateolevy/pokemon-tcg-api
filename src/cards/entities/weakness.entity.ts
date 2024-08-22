@@ -6,7 +6,10 @@ import { BaseDbEntity } from '../../common/entities/base.entity';
 @Entity()
 @Check('"multiplier" > 1')
 export class Weakness extends BaseDbEntity {
-  @ManyToOne(() => Card, (card) => card.weaknesses, { nullable: false })
+  @ManyToOne(() => Card, (card) => card.weaknesses, {
+    onDelete: 'CASCADE',
+    nullable: false,
+  })
   card: Card;
 
   @ManyToOne(() => Type, { nullable: false })

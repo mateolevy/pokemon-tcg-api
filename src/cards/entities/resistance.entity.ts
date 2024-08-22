@@ -6,7 +6,10 @@ import { BaseDbEntity } from '../../common/entities/base.entity';
 @Entity()
 @Check('"value" < 0')
 export class Resistance extends BaseDbEntity {
-  @ManyToOne(() => Card, (card) => card.resistances, { nullable: false })
+  @ManyToOne(() => Card, (card) => card.resistances, {
+    onDelete: 'CASCADE',
+    nullable: false,
+  })
   card: Card;
 
   @ManyToOne(() => Type, { nullable: false })

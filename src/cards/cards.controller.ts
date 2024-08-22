@@ -11,6 +11,8 @@ import { CardsService } from './cards.service';
 import { CreateCardDto } from './dto/create-card.dto';
 import { UpdateCardDto } from './dto/update-card.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { CardDto } from './dto/card.dto';
+import { BattleResultDto } from './dto/battle-result.dto';
 
 @Controller('cards')
 @ApiTags('cards')
@@ -25,6 +27,29 @@ export class CardsController {
   @Get()
   findAll() {
     return this.cardsService.findAll();
+  }
+
+  @Get('metadata')
+  getMetadata() {
+    return this.cardsService.findCardMetadata();
+  }
+
+  @Get('battle/:attackingCardId/:defendingCardId')
+  async simulateBattle(
+    @Param('attackingCardId') attackingCardId: string,
+    @Param('defendingCardId') defendingCardId: string,
+  ): Promise<BattleResultDto> {
+    return await this.cardsService.simulateBattle(
+      attackingCardId,
+      defendingCardId,
+    );
+  }
+
+  @Get(':id/weaknesses-resistances')
+  async getWeaknessesAndResistances(
+    @Param('id') cardId: string,
+  ): Promise<{ weaknesses: CardDto[]; resistances: CardDto[] }> {
+    return await this.cardsService.identifyWeaknessesAndResistances(cardId);
   }
 
   @Get(':id')
