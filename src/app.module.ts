@@ -4,6 +4,8 @@ import { CardsModule } from './cards/cards.module';
 import { CommonModule } from './common/common.module';
 import typeorm from './database/data-source';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       useFactory: async (configService: ConfigService) =>
         configService.get('typeorm'),
     }),
+    AuthModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],

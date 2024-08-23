@@ -117,6 +117,10 @@ export class CardsService {
       where.type = { id: query.typeId };
     }
 
+    // Ensure default values are used if not provided
+    const page = query.page ?? 1;
+    const limit = query.limit ?? 10;
+
     const [cards, total] = await this.cardRepository.findAndCount({
       where,
       relations: [
@@ -129,8 +133,8 @@ export class CardsService {
         'weaknesses.type',
         'resistances.type',
       ],
-      take: query.limit,
-      skip: (query.page - 1) * query.limit,
+      take: limit,
+      skip: (page - 1) * limit,
       order: { createdAt: 'ASC' },
     });
 

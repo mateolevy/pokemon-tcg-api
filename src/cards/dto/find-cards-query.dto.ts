@@ -1,5 +1,5 @@
 import { IsOptional, IsString, IsUUID, IsInt, Min } from 'class-validator';
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 
 export class FindCardsQueryDto {
   @IsOptional()
@@ -8,19 +8,19 @@ export class FindCardsQueryDto {
 
   @IsOptional()
   @IsUUID()
+  @Transform(({ value }) => value || undefined) // Transform empty string to undefined
   setId?: string;
 
   @IsOptional()
   @IsUUID()
+  @Transform(({ value }) => value || undefined) // Transform empty string to undefined
   typeId?: string;
 
-  @IsOptional()
   @IsInt()
   @Min(1)
   @Type(() => Number)
   page: number = 1;
 
-  @IsOptional()
   @IsInt()
   @Min(1)
   @Type(() => Number)
