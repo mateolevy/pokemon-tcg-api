@@ -17,6 +17,9 @@ const config: DataSourceOptions = {
   migrationsTableName: 'typeorm_migrations',
   synchronize: false,
   migrationsRun: false,
+  ssl: {
+    rejectUnauthorized: false,
+  },
   logging: true,
   namingStrategy: new SnakeNamingStrategy(),
 };

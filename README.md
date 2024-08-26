@@ -1,7 +1,7 @@
 ## Requirements
 
 - Docker
-- Node
+- Node 20.x
 
 ## Installation
 
