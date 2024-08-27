@@ -16,7 +16,7 @@ import { Resistance } from './entities/resistance.entity';
 import { Weakness } from './entities/weakness.entity';
 import { CardDto } from './dto/card.dto';
 import { BattleResultDto } from './dto/battle-result.dto';
-import { PaginatedResultDto } from 'src/common/dto/paginated-result.dto';
+import { PaginatedResultDto } from './../common/dto/paginated-result.dto';
 import { FindCardsQueryDto } from './dto/find-cards-query.dto';
 
 @Injectable()
