@@ -432,7 +432,7 @@ export class CardsService {
         })) ?? [],
       weaknesses:
         card.weaknesses?.map((weakness) => ({
-          multiplier: weakness.multiplier ?? 1, // assuming 1 as a default multiplier
+          multiplier: weakness.multiplier ?? 1,
           type: weakness.type?.name ?? '',
         })) ?? [],
       resistances:

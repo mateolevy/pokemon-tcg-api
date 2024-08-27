@@ -84,3 +84,9 @@ $ yarn run test:e2e
 # test coverage
 $ yarn run test:cov
 ```
+
+## Cloud Deployment
+
+The api is deployed on Heroku. To deploy your changes, push your commits to the main branch, and Heroku will automatically build and deploy the latest version.
+Visit the live api at: [https://pokemon-tcg-api-cookunity-20f6771efb1d.herokuapp.com/api/docs/](https://pokemon-tcg-api-cookunity-20f6771efb1d.herokuapp.com/api/docs/)
+The DB is deployed in AWS RDS.
